@@ -22,12 +22,12 @@ jobs:
           generate-docs: "true"
 
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
 
       - name: Create PR for Documentation
         id: push_image_info
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
         run: |
           set -e
           echo "Start."
@@ -50,7 +50,7 @@ jobs:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v3
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.DISPATCH_TOKEN }}
           repository: ajlab-gh/devcontainer_templates
           event-type: features
           client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
